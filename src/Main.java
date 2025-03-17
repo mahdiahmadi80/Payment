@@ -1,15 +1,22 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Account account1 = new Account("Ali", 1000);
+        Account account2 = new Account("Sara", 2000);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println(account1.logBalance());
+        System.out.println(account2.logBalance());
+
+        Payment[] payments = new Payment[]{
+                new CreditCardPayment(account1, account2, 500),
+                new DigitalWalletPayment(account2, account1, "wallet1", "email@email.com", 300),
+                new CashPayment(account1, account2, 900) // این پرداخت باید خطای کمبود موجودی بدهد
+        };
+
+        for (Payment payment : payments) {
+            System.out.println(payment.processPayment());
         }
+
+        System.out.println(account1.logBalance());
+        System.out.println(account2.logBalance());
     }
 }
